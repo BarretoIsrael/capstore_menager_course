@@ -1,10 +1,9 @@
 package com.barreto.developer.capstroremenager.repository;
 
+import com.barreto.developer.capstroremenager.entity.Caps;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.awt.print.Book;
-
-public interface CapRepository extends JpaRepository<Book, Long> {
+public interface CapRepository extends JpaRepository<Caps, Long> {
 
 
 }
