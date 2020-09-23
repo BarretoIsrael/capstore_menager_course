@@ -70,11 +70,6 @@
 			<version>1.0.2</version>
 			<scope>test</scope>
 		</dependency>
-        <dependency>
-            <groupId>com.barreto.developer</groupId>
-            <artifactId>capstroremenager</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
 		<dependency>
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>
