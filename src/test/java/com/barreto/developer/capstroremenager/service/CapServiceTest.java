@@ -4,19 +4,19 @@ import com.barreto.developer.capstroremenager.dto.CapDTO;
 import com.barreto.developer.capstroremenager.entity.Caps;
 import com.barreto.developer.capstroremenager.exception.CapNotFoundException;
 import com.barreto.developer.capstroremenager.repository.CapRepository;
-import com.barreto.developer.capstroremenager.utils.CapUtils;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
 import static com.barreto.developer.capstroremenager.utils.CapUtils.createFakeCap;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class CapServiceTest {
@@ -31,7 +31,7 @@ public class CapServiceTest {
     void whenGivingExistingIdThenReturnThisCap() throws CapNotFoundException {
         Caps expectedFoundCap = createFakeCap();
 
-        Mockito.when(capRepository.findById(expectedFoundCap.getId()))
+        when(capRepository.findById(expectedFoundCap.getId()))
                 .thenReturn(Optional.of(expectedFoundCap));
 
         CapDTO capDTO = capService.findById((expectedFoundCap.getId()));
@@ -39,5 +39,15 @@ public class CapServiceTest {
         assertEquals(expectedFoundCap.getMarca(), capDTO.getMarca());
         assertEquals(expectedFoundCap.getCor(), capDTO.getCor());
         assertEquals(expectedFoundCap.getTamanho(), capDTO.getTamanho());
+    }
+
+    @Test
+    void whenGivingUnexistingIdThenNotFindThrowAnException() {
+        var invalidId = 10L;
+
+
+        when(capRepository.findById(invalidId)).thenReturn(Optional.ofNullable(any(Caps.class)));
+
+        assertThrows(CapNotFoundException.class, () -> capService.findById(invalidId));
     }
 }
