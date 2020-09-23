@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.awt.print.Book;
+import java.util.Optional;
 
 @Service
 public class CapService {
@@ -30,5 +31,10 @@ public class CapService {
         return MessageResponseDTO.builder()
                 .message("Cap created with ID " + savedCap.getId())
                 .build();
+    }
+
+    public CapDTO findById(Long id) {
+        Optional<Caps> optionalCaps = capRepository.findById(id);
+        return capMapper.toDTO(optionalCaps.get());
     }
 }
