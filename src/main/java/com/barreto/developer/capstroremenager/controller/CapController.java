@@ -3,6 +3,7 @@ package com.barreto.developer.capstroremenager.controller;
 import com.barreto.developer.capstroremenager.dto.CapDTO;
 import com.barreto.developer.capstroremenager.dto.MessageResponseDTO;
 import com.barreto.developer.capstroremenager.entity.Caps;
+import com.barreto.developer.capstroremenager.exception.CapNotFoundException;
 import com.barreto.developer.capstroremenager.repository.CapRepository;
 import com.barreto.developer.capstroremenager.service.CapService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class CapController {
     }
 
     @GetMapping("/{id}")
-    public CapDTO findById(@PathVariable Long id){
+    public CapDTO findById(@PathVariable Long id) throws CapNotFoundException {
         return capService.findById(id);
     }
 

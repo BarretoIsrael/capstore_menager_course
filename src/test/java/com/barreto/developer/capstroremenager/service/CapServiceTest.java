@@ -2,6 +2,7 @@ package com.barreto.developer.capstroremenager.service;
 
 import com.barreto.developer.capstroremenager.dto.CapDTO;
 import com.barreto.developer.capstroremenager.entity.Caps;
+import com.barreto.developer.capstroremenager.exception.CapNotFoundException;
 import com.barreto.developer.capstroremenager.repository.CapRepository;
 import com.barreto.developer.capstroremenager.utils.CapUtils;
 import org.junit.jupiter.api.Assertions;
@@ -27,7 +28,7 @@ public class CapServiceTest {
     private CapService capService;
 
     @Test
-    void whenGivingExistingIdThenReturnThisCap() {
+    void whenGivingExistingIdThenReturnThisCap() throws CapNotFoundException {
         Caps expectedFoundCap = createFakeCap();
 
         Mockito.when(capRepository.findById(expectedFoundCap.getId()))

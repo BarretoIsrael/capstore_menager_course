@@ -3,6 +3,7 @@ package com.barreto.developer.capstroremenager.service;
 import com.barreto.developer.capstroremenager.dto.CapDTO;
 import com.barreto.developer.capstroremenager.dto.MessageResponseDTO;
 import com.barreto.developer.capstroremenager.entity.Caps;
+import com.barreto.developer.capstroremenager.exception.CapNotFoundException;
 import com.barreto.developer.capstroremenager.mapper.CapMapper;
 import com.barreto.developer.capstroremenager.repository.CapRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,8 +34,9 @@ public class CapService {
                 .build();
     }
 
-    public CapDTO findById(Long id) {
-        Optional<Caps> optionalCaps = capRepository.findById(id);
-        return capMapper.toDTO(optionalCaps.get());
+    public CapDTO findById(Long id) throws CapNotFoundException {
+       Caps caps = capRepository.findById(id).orElseThrow(() -> new CapNotFoundException(id));
+
+        return capMapper.toDTO(caps);
     }
 }
